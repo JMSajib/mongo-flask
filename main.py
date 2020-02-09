@@ -6,13 +6,23 @@ from bson.objectid import ObjectId
 
 @app.route('/add', methods=['POST'])
 def add_user():
-	_json = request.json
-	_name = _json['name']
-	_email = _json['email']
-	_password = _json['pwd']
+	data = request.json
+	name = data['name']
+	email = data['email']
+	password = data['pwd']
+	credit_card = data['credit_card']
+	subscriber_id = data['subscriber_id']
+	subscribe_date = data['subscribe_date']
 
-	if _name and _email and _password and request.method == 'POST':
-		id = mongo.db.user.insert({'name': _name, 'email': _email, 'pwd': _password})
+	if name and email and password and request.method == 'POST':
+		id = mongo.db.user.insert({
+			'name': name, 
+			'email': email, 
+			'pwd': password,
+			'credit_card': credit_card,
+			'subscriber_id': subscriber_id,
+			'subscriber_date': subscribe_date
+			})
 		resp = jsonify('User added successfully!')
 		resp.status_code = 200
 		return resp
